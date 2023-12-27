@@ -17,7 +17,7 @@ jobs:
       run: sudo apt-get install p7zip-full
 
     - name: Extract Version from Tag
-      run: echo "VERSION=$(echo ${GITHUB_REF} | sed 's/refs\/tags\/v//')" >> $GITHUB_ENV
+      run: echo "VERSION=$(echo ${{github.run_number}} | sed 's/refs\/tags\/v//')" >> $GITHUB_ENV
 
     - name: Zip files
       run: 7z a -tzip -mx=9 ./Releases/LethalExpansion_v${{ env.VERSION }}.zip ./Build/*
@@ -48,13 +48,13 @@ jobs:
     - name: Upload Release Asset Zip
       uses: GreenTF/upload-thunderstore-package@v4.2
       with:
-        namespace: HolographicWings
+        namespace: GreenTF
         description: Large game expansion with SDK support and a plenty of features.
         token: ${{ secrets.THUNDERSTORE_TOKEN }}
         name: LethalExpansion
         version: ${{ env.VERSION }}
-        community: lethal-company
-        repo: thunderstore.io
+        community: riskofrain2
+        repo: thunderstore.dev
         categories: |
           bepinex
           clientside
